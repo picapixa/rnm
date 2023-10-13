@@ -7,7 +7,9 @@ export const env = createEnv({
    * Serverside Environment variables, not available on the client.
    * Will throw if you access these variables on the client.
    */
-  // server: {},
+  server: {
+    GRAPHQL_API_URL: z.string().url(),
+  },
   /*
    * Environment variables available on the client (and server).
    *
@@ -23,6 +25,7 @@ export const env = createEnv({
    * 💡 You'll get type errors if not all variables from `server` & `client` are included here.
    */
   runtimeEnv: {
+    GRAPHQL_API_URL: process.env.GRAPHQL_API_URL,
     NEXT_PUBLIC_GRAPHQL_API_URL: process.env.NEXT_PUBLIC_GRAPHQL_API_URL,
   },
 });
