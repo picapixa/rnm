@@ -1,12 +1,10 @@
 import { useQuery } from "@apollo/client";
-import { Container, ImageList, ImageListItem } from "@mui/material";
-import { Inter } from "next/font/google";
+import { AppBar, Link, Toolbar, Typography } from "@mui/material";
 import Head from "next/head";
-import InfiniteScroll from "react-infinite-scroll-component";
 
-import { gql } from "@/__generated__/gql";
-
-const inter = Inter({ subsets: ["latin"] });
+import { gql } from "@/__generated__";
+import CharacterListItem from "@/components/domains/characters/character-list-item";
+import InfiniteCharacterList from "@/components/domains/characters/infinite-character-list";
 
 const GET_CHARACTERS_QUERY = gql(/* GraphQL */ `
   query GetCharacters($page: Int!) {
@@ -19,14 +17,13 @@ const GET_CHARACTERS_QUERY = gql(/* GraphQL */ `
       }
       results {
         id
-        name
-        image
+        ...CharacterListItem
       }
     }
   }
 `);
 
-export default function Home() {
+export default function HomePage() {
   const { data, fetchMore } = useQuery(GET_CHARACTERS_QUERY, {
     fetchPolicy: "network-only",
     variables: {
@@ -51,30 +48,35 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Container className={inter.className}>
-        {data?.characters?.results && data?.characters.results?.length > 0 ? (
-          <ImageList variant="masonry" cols={3}>
-            <InfiniteScroll
-              next={loadNextBatch}
-              hasMore={!!data.characters?.info?.next}
-              loader={<h4>Loading...</h4>}
-              dataLength={data?.characters.results.length || 0}
-            >
-              {data.characters.results.map((character) => (
-                <ImageListItem key={character?.id}>
-                  <picture>
-                    <img
-                      src={character?.image || ""}
-                      alt={character?.name || ""}
-                      loading="lazy"
-                    />
-                  </picture>
-                </ImageListItem>
-              ))}
-            </InfiniteScroll>
-          </ImageList>
-        ) : null}
-      </Container>
+      <AppBar>
+        <Toolbar>
+          <Typography variant="h6" component="h1">
+            Characters
+          </Typography>
+        </Toolbar>
+      </AppBar>
+
+      <InfiniteCharacterList
+        next={loadNextBatch}
+        hasMore={!!data?.characters?.info?.next}
+        loader={<h4>Loading...</h4>}
+        dataLength={data?.characters?.results?.length || 0}
+      >
+        {data?.characters?.results?.map(
+          (character) =>
+            character && (
+              <Link
+                href={`/characters/${character?.id}`}
+                key={character?.id}
+                display="flex"
+                flexGrow={1}
+                flexBasis={{ xs: "33%", md: "20%", lg: "16.67%" }}
+              >
+                <CharacterListItem character={character} />
+              </Link>
+            ),
+        )}
+      </InfiniteCharacterList>
     </>
   );
 }
