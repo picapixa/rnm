@@ -11,9 +11,7 @@ const Description = ({ children, term }: DescriptionProps) => {
       <Typography variant="caption" sx={{ flexBasis: "33%", flexGrow: 1 }}>
         {term}
       </Typography>
-      <Typography variant="body1" sx={{ flexBasis: "67%", flexGrow: 1 }}>
-        {children}
-      </Typography>
+      <Box sx={{ flexBasis: "67%", flexGrow: 1 }}>{children}</Box>
     </Box>
   );
 };

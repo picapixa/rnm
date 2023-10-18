@@ -40,9 +40,15 @@ const CharacterView = (props: CharacterViewProps) => {
   return (
     <CharacterViewContainer>
       <CharacterHeader character={character} />
-      <Description term="Gender">{character.gender}</Description>
-      <Description term="Origin">{character.origin?.name}</Description>
-      <Description term="Location">{character.location?.name}</Description>
+      <Description term="Gender">
+        <Typography variant="body1">{character.gender}</Typography>
+      </Description>
+      <Description term="Origin">
+        <Typography variant="body1">{character.origin?.name}</Typography>
+      </Description>
+      <Description term="Location">
+        <Typography variant="body1">{character.location?.name}</Typography>
+      </Description>
       {character.episode?.length > 0 && (
         <Description term="Episodes">
           {character.episode?.map(
