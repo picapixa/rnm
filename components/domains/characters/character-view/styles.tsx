@@ -1,4 +1,4 @@
-import { Box, BoxProps, Container, styled } from "@mui/material";
+import { Box, BoxProps, Container, Tooltip, styled } from "@mui/material";
 import Image from "next/image";
 
 export const CharacterViewContainer = styled(Container)(({ theme }) => ({
@@ -64,3 +64,11 @@ export const CharacterHeaderInformation = styled(Box)<BoxProps>(
     },
   }),
 );
+
+export const CharacterHeaderTooltip = styled(Tooltip)(({ theme }) => ({
+  color: "white",
+
+  [theme.breakpoints.up("md")]: {
+    color: theme.palette.text.primary,
+  },
+}));

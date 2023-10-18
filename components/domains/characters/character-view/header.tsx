@@ -1,6 +1,6 @@
-import { IconButton, Tooltip, Typography } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import React from "react";
-import { LiaSkullCrossbonesSolid } from "react-icons/lia";
+import { LiaQuestionCircle, LiaSkullCrossbonesSolid } from "react-icons/lia";
 
 import { FragmentType, gql, useFragment } from "@/__generated__";
 
@@ -8,6 +8,7 @@ import {
   CharacterHeaderContainer,
   CharacterHeaderImage,
   CharacterHeaderInformation,
+  CharacterHeaderTooltip,
 } from "./styles";
 
 export const CHARACTER_HEADER_FRAGMENT = gql(/* GraphQL */ `
@@ -42,11 +43,18 @@ const CharacterHeader = (props: CharacterHeaderProps) => {
         <Typography variant="h3" fontWeight={600}>
           {character.name}
           {character.status === "Dead" && (
-            <Tooltip title="Dead" sx={{ color: "white" }}>
+            <CharacterHeaderTooltip title="Dead">
               <IconButton>
                 <LiaSkullCrossbonesSolid size={36} />
               </IconButton>
-            </Tooltip>
+            </CharacterHeaderTooltip>
+          )}
+          {character.status === "unknown" && (
+            <CharacterHeaderTooltip title="Unknown status">
+              <IconButton>
+                <LiaQuestionCircle size={36} />
+              </IconButton>
+            </CharacterHeaderTooltip>
           )}
         </Typography>
       </CharacterHeaderInformation>
