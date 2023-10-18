@@ -1,7 +1,7 @@
 import { Box, CircularProgress } from "@mui/material";
 import React from "react";
 
-const InfinityLoadingIndicator = () => {
+const InfiniteScrollLoader = () => {
   return (
     <Box
       sx={{
@@ -17,4 +17,4 @@ const InfinityLoadingIndicator = () => {
   );
 };
 
-export default InfinityLoadingIndicator;
+export default InfiniteScrollLoader;

@@ -5,7 +5,7 @@ import Head from "next/head";
 import { gql } from "@/__generated__";
 import CharacterListItem from "@/components/domains/characters/character-list-item";
 import InfiniteCharacterList from "@/components/domains/characters/infinite-character-list";
-import InfinityLoadingIndicator from "@/components/primitives/infinity-loading-indicator";
+import InfiniteScrollLoader from "@/components/infinite-scroll-loader";
 
 const GET_CHARACTERS_QUERY = gql(/* GraphQL */ `
   query GetCharacters($page: Int!) {
@@ -61,7 +61,7 @@ export default function HomePage() {
         <InfiniteCharacterList
           next={loadNextBatch}
           hasMore={!!data?.characters?.info?.next}
-          loader={<InfinityLoadingIndicator />}
+          loader={<InfiniteScrollLoader />}
           dataLength={data?.characters?.results?.length || 0}
         >
           {data?.characters?.results?.map(
