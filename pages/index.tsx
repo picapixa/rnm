@@ -3,8 +3,8 @@ import { AppBar, Box, Link, Toolbar, Typography } from "@mui/material";
 import Head from "next/head";
 
 import { gql } from "@/__generated__";
-import CharacterListItem from "@/components/domains/characters/character-list-item";
 import InfiniteCharacterList from "@/components/domains/characters/infinite-character-list";
+import CharacterListItem from "@/components/domains/characters/infinite-character-list/item";
 import InfiniteScrollLoader from "@/components/infinite-scroll-loader";
 
 const GET_CHARACTERS_QUERY = gql(/* GraphQL */ `
