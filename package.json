@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "concurrently \"yarn gql:watch\" \"yarn next:dev\"",
+    "build": "yarn gql:compile && yarn next:build",
     "next:dev": "next dev",
     "next:build": "next build",
     "next:start": "next start",
