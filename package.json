@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "run-s gql:compile next:dev",
+    "dev": "concurrently \"yarn gql:watch\" \"yarn next:dev\"",
     "next:dev": "next dev",
     "next:build": "next build",
     "next:start": "next start",
     "next:lint": "next lint",
     "gql:compile": "dotenv graphql-codegen",
-    "gql:watch": "dotenv graphql-codegen -w",
+    "gql:watch": "dotenv graphql-codegen -w '/**/*.{ts,tsx}'",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -18,11 +18,13 @@
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.14.13",
     "@t3-oss/env-nextjs": "^0.7.0",
+    "concurrently": "^8.2.1",
     "dotenv-cli": "^7.3.0",
     "graphql": "^16.8.1",
     "next": "13.5.4",
     "react": "^18",
     "react-dom": "^18",
+    "react-icons": "^4.11.0",
     "react-infinite-scroll-component": "^6.1.0",
     "zod": "^3.22.4"
   },
@@ -31,6 +33,7 @@
     "@graphql-codegen/client-preset": "^4.1.0",
     "@graphql-eslint/eslint-plugin": "^3.20.1",
     "@graphql-typed-document-node/core": "^3.2.0",
+    "@parcel/watcher": "^2.3.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -43,7 +46,6 @@
     "eslint-plugin-unused-imports": "^3.0.0",
     "husky": ">=6",
     "lint-staged": ">=10",
-    "npm-run-all": "^4.1.5",
     "prettier": "^3.0.3",
     "ts-node": "^10.9.1",
     "typescript": "^5"
