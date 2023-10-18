@@ -1,7 +1,8 @@
-import { Grid } from "@mui/material";
 import React from "react";
 
 import { FragmentType, gql, useFragment } from "@/__generated__";
+
+import { CharacterListItemContainer, CharacterListItemInfo } from "./styles";
 
 export const CHARACTER_LIST_ITEM_FRAGMENT = gql(/* GraphQL */ `
   fragment CharacterListItem on Character {
@@ -18,7 +19,7 @@ const CharacterListItem = (props: CharacterListItemProps) => {
   const character = useFragment(CHARACTER_LIST_ITEM_FRAGMENT, props.character);
 
   return (
-    <Grid item>
+    <CharacterListItemContainer item>
       <picture style={{ display: "flex", flex: 1 }}>
         <img
           style={{ flex: 1 }}
@@ -29,7 +30,10 @@ const CharacterListItem = (props: CharacterListItemProps) => {
           loading="lazy"
         />
       </picture>
-    </Grid>
+      <CharacterListItemInfo className="character-info">
+        {character.name}
+      </CharacterListItemInfo>
+    </CharacterListItemContainer>
   );
 };
 
