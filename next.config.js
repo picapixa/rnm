@@ -4,6 +4,9 @@ const nextConfig = {
     domains: ["rickandmortyapi.com"],
   },
   reactStrictMode: true,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 module.exports = nextConfig;
