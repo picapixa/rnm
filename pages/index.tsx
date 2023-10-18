@@ -1,10 +1,11 @@
 import { useQuery } from "@apollo/client";
-import { AppBar, Link, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Link, Toolbar, Typography } from "@mui/material";
 import Head from "next/head";
 
 import { gql } from "@/__generated__";
 import CharacterListItem from "@/components/domains/characters/character-list-item";
 import InfiniteCharacterList from "@/components/domains/characters/infinite-character-list";
+import InfinityLoadingIndicator from "@/components/primitives/infinity-loading-indicator";
 
 const GET_CHARACTERS_QUERY = gql(/* GraphQL */ `
   query GetCharacters($page: Int!) {
@@ -56,27 +57,29 @@ export default function HomePage() {
         </Toolbar>
       </AppBar>
 
-      <InfiniteCharacterList
-        next={loadNextBatch}
-        hasMore={!!data?.characters?.info?.next}
-        loader={<h4>Loading...</h4>}
-        dataLength={data?.characters?.results?.length || 0}
-      >
-        {data?.characters?.results?.map(
-          (character) =>
-            character && (
-              <Link
-                href={`/characters/${character?.id}`}
-                key={character?.id}
-                display="flex"
-                flexGrow={1}
-                flexBasis={{ xs: "33%", md: "20%", lg: "16.67%" }}
-              >
-                <CharacterListItem character={character} />
-              </Link>
-            ),
-        )}
-      </InfiniteCharacterList>
+      <Box marginTop={6}>
+        <InfiniteCharacterList
+          next={loadNextBatch}
+          hasMore={!!data?.characters?.info?.next}
+          loader={<InfinityLoadingIndicator />}
+          dataLength={data?.characters?.results?.length || 0}
+        >
+          {data?.characters?.results?.map(
+            (character) =>
+              character && (
+                <Link
+                  href={`/characters/${character?.id}`}
+                  key={character?.id}
+                  display="flex"
+                  flexGrow={1}
+                  flexBasis={{ xs: "33%", md: "20%", lg: "16.67%" }}
+                >
+                  <CharacterListItem character={character} />
+                </Link>
+              ),
+          )}
+        </InfiniteCharacterList>
+      </Box>
     </>
   );
 }
