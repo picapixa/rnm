@@ -16,7 +16,7 @@ import { gql } from "@/__generated__";
 import CharacterView from "@/components/domains/characters/character-view";
 import AppBarScroll from "@/components/layout/app-bar-scroll";
 
-const GET_CHARACTER_QUERY = gql(/* GraphQL */ `
+export const GET_CHARACTER_QUERY = gql(/* GraphQL */ `
   query GetCharacter($id: ID!) {
     character(id: $id) {
       name

@@ -30,12 +30,14 @@ const CharacterHeader = (props: CharacterHeaderProps) => {
 
   return (
     <CharacterHeaderContainer>
-      <CharacterHeaderImage
-        src={character.image || ""}
-        alt={character.name || ""}
-        width={300}
-        height={300}
-      />
+      {character.image && (
+        <CharacterHeaderImage
+          src={character.image || ""}
+          alt={character.name || ""}
+          width={300}
+          height={300}
+        />
+      )}
       <CharacterHeaderInformation>
         <Typography variant="overline">
           {character.species} {character.type && `\u2022 ${character.type}`}
