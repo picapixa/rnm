@@ -1,5 +1,12 @@
 import { useQuery } from "@apollo/client";
-import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  CircularProgress,
+  IconButton,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
@@ -22,7 +29,7 @@ const CharacterPage = () => {
   const { query } = useRouter();
   const { id } = query;
 
-  const { data } = useQuery(GET_CHARACTER_QUERY, {
+  const { data, loading } = useQuery(GET_CHARACTER_QUERY, {
     variables: {
       id: id?.toString() || "",
     },
@@ -50,12 +57,28 @@ const CharacterPage = () => {
             <IconButton edge="start" color="inherit" aria-label="back" href="/">
               <MdArrowBack />
             </IconButton>
-            <Typography>{character?.name}</Typography>
+            {character ? <Typography>{character.name}</Typography> : null}
           </Toolbar>
         </AppBar>
       </AppBarScroll>
 
-      <CharacterView character={character} />
+      {loading ? (
+        <Box
+          position="absolute"
+          top={0}
+          bottom={0}
+          left={0}
+          right={0}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          height="100%"
+        >
+          <CircularProgress />
+        </Box>
+      ) : (
+        <CharacterView character={character} />
+      )}
     </>
   );
 };
