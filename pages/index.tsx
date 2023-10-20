@@ -16,7 +16,7 @@ import InfiniteCharacterList from "@/components/domains/characters/infinite-char
 import CharacterListItem from "@/components/domains/characters/infinite-character-list/item";
 import InfiniteScrollLoader from "@/components/infinite-scroll-loader";
 
-const SKELETON_PLACEHOLDER_COUNT = 12;
+const SKELETON_PLACEHOLDER_COUNT = 20;
 
 export const GET_CHARACTERS_QUERY = gql(/* GraphQL */ `
   query GetCharacters($page: Int!) {
@@ -68,7 +68,7 @@ export default function HomePage() {
         </Toolbar>
       </AppBar>
 
-      <Box marginTop={8}>
+      <Box marginTop={{ xs: 7, sm: 8 }}>
         {loading ? (
           <Grid container display="flex" flexWrap="wrap">
             {times(SKELETON_PLACEHOLDER_COUNT, (i) => (
