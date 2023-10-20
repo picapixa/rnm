@@ -7,12 +7,12 @@ export const CharacterViewContainer = styled(Container)(({ theme }) => ({
   paddingRight: theme.spacing(0),
 
   [theme.breakpoints.up("sm")]: {
+    marginTop: theme.spacing(8),
     paddingLeft: theme.spacing(0),
     paddingRight: theme.spacing(0),
   },
 
   [theme.breakpoints.up("md")]: {
-    marginTop: theme.spacing(8),
     paddingLeft: theme.spacing(4),
     paddingRight: theme.spacing(4),
     paddingTop: theme.spacing(4),
