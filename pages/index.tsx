@@ -1,5 +1,14 @@
 import { useQuery } from "@apollo/client";
-import { AppBar, Box, Link, Toolbar, Typography } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Grid,
+  Link,
+  Skeleton,
+  Toolbar,
+  Typography,
+} from "@mui/material";
+import times from "lodash/times";
 import Head from "next/head";
 
 import { gql } from "@/__generated__";
@@ -7,7 +16,9 @@ import InfiniteCharacterList from "@/components/domains/characters/infinite-char
 import CharacterListItem from "@/components/domains/characters/infinite-character-list/item";
 import InfiniteScrollLoader from "@/components/infinite-scroll-loader";
 
-const GET_CHARACTERS_QUERY = gql(/* GraphQL */ `
+const SKELETON_PLACEHOLDER_COUNT = 12;
+
+export const GET_CHARACTERS_QUERY = gql(/* GraphQL */ `
   query GetCharacters($page: Int!) {
     characters(page: $page) {
       info {
@@ -25,7 +36,7 @@ const GET_CHARACTERS_QUERY = gql(/* GraphQL */ `
 `);
 
 export default function HomePage() {
-  const { data, fetchMore } = useQuery(GET_CHARACTERS_QUERY, {
+  const { data, loading, fetchMore } = useQuery(GET_CHARACTERS_QUERY, {
     fetchPolicy: "network-only",
     variables: {
       page: 1,
@@ -57,28 +68,52 @@ export default function HomePage() {
         </Toolbar>
       </AppBar>
 
-      <Box marginTop={6}>
-        <InfiniteCharacterList
-          next={loadNextBatch}
-          hasMore={!!data?.characters?.info?.next}
-          loader={<InfiniteScrollLoader />}
-          dataLength={data?.characters?.results?.length || 0}
-        >
-          {data?.characters?.results?.map(
-            (character) =>
-              character && (
-                <Link
-                  href={`/characters/${character?.id}`}
-                  key={character?.id}
-                  display="flex"
-                  flexGrow={1}
-                  flexBasis={{ xs: "33%", md: "20%", lg: "16.67%" }}
-                >
-                  <CharacterListItem character={character} />
-                </Link>
-              ),
-          )}
-        </InfiniteCharacterList>
+      <Box marginTop={8}>
+        {loading ? (
+          <Grid container display="flex" flexWrap="wrap">
+            {times(SKELETON_PLACEHOLDER_COUNT, (i) => (
+              <Grid
+                item
+                key={i}
+                display="flex"
+                flexGrow={1}
+                flexBasis={{ xs: "33%", md: "20%", lg: "16.67%" }}
+              >
+                <Skeleton
+                  variant="rectangular"
+                  sx={{
+                    flexGrow: 1,
+                    aspectRatio: 1,
+                    height: "auto",
+                    animationDelay: `${i * 0.1}s`,
+                  }}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        ) : (
+          <InfiniteCharacterList
+            next={loadNextBatch}
+            hasMore={!!data?.characters?.info?.next}
+            loader={<InfiniteScrollLoader />}
+            dataLength={data?.characters?.results?.length || 0}
+          >
+            {data?.characters?.results?.map(
+              (character) =>
+                character && (
+                  <Link
+                    href={`/characters/${character?.id}`}
+                    key={character?.id}
+                    display="flex"
+                    flexGrow={1}
+                    flexBasis={{ xs: "33%", md: "20%", lg: "16.67%" }}
+                  >
+                    <CharacterListItem character={character} />
+                  </Link>
+                ),
+            )}
+          </InfiniteCharacterList>
+        )}
       </Box>
     </>
   );
