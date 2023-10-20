@@ -2,7 +2,7 @@ import "@testing-library/jest-dom";
 import { MockedProvider } from "@apollo/client/testing";
 import { render, screen } from "@testing-library/react";
 
-import IndexPage, { GET_CHARACTERS_QUERY } from "./index";
+import IndexPage, { GET_CHARACTERS_QUERY } from "@/pages/index";
 
 const mocks = [
   {

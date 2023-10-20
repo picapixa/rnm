@@ -4,7 +4,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import mockRouter from "next-router-mock";
 import { createDynamicRouteParser } from "next-router-mock/dynamic-routes";
 
-import CharacterPage, { GET_CHARACTER_QUERY } from "./[id]";
+import CharacterPage, { GET_CHARACTER_QUERY } from "@/pages/characters/[id]";
 
 const mocks = [
   {
