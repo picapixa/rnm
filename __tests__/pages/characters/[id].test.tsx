@@ -31,7 +31,6 @@ const mocks = [
 ];
 
 jest.mock("next/router", () => require("next-router-mock"));
-
 mockRouter.useParser(createDynamicRouteParser(["/characters/[id]"]));
 
 describe("Character Page", () => {

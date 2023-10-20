@@ -1,6 +1,8 @@
 import "@testing-library/jest-dom";
 import { MockedProvider } from "@apollo/client/testing";
 import { render, screen } from "@testing-library/react";
+import mockRouter from "next-router-mock";
+import { createDynamicRouteParser } from "next-router-mock/dynamic-routes";
 
 import IndexPage, { GET_CHARACTERS_QUERY } from "@/pages/index";
 
@@ -36,6 +38,9 @@ const mocks = [
     },
   },
 ];
+
+jest.mock("next/router", () => require("next-router-mock"));
+mockRouter.useParser(createDynamicRouteParser(["/characters/[id]"]));
 
 describe("Index Page", () => {
   it("renders without crashing", () => {
