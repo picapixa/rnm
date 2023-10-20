@@ -1,13 +1,5 @@
 import { useQuery } from "@apollo/client";
-import {
-  AppBar,
-  Box,
-  Grid,
-  Link,
-  Skeleton,
-  Toolbar,
-  Typography,
-} from "@mui/material";
+import { Box, Grid, Link, Skeleton } from "@mui/material";
 import times from "lodash/times";
 import Head from "next/head";
 
@@ -15,6 +7,7 @@ import { gql } from "@/__generated__";
 import InfiniteCharacterList from "@/components/domains/characters/infinite-character-list";
 import CharacterListItem from "@/components/domains/characters/infinite-character-list/item";
 import InfiniteScrollLoader from "@/components/infinite-scroll-loader";
+import AppBarWithSearch from "@/components/navigation/app-bar-with-search";
 
 const SKELETON_PLACEHOLDER_COUNT = 20;
 
@@ -60,13 +53,7 @@ export default function HomePage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <AppBar>
-        <Toolbar>
-          <Typography variant="h6" component="h1">
-            Characters
-          </Typography>
-        </Toolbar>
-      </AppBar>
+      <AppBarWithSearch />
 
       <Box marginTop={{ xs: 7, sm: 8 }}>
         {loading ? (
